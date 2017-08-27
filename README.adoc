@@ -1,0 +1,18 @@
+ * start server
++
+----
+mvn clean integration-test -Prun-tomcat
+----
+ * restart module
++
+----
+# module can be idp, oidc or sts
+cd <module>
+mvn clean tomcat:redeploy
+----
+ * test authentication
+ ** http://localhost:8080/oidc/console/clients +
+    you'll be redirected to the login screen from IDP
+ ** submit your credentials +
+    choose bob/bob or alice/ecila
+ ** you'll get redirected back to the original /oidc/console/clients page.
