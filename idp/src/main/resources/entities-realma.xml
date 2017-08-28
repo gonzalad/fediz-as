@@ -506,7 +506,18 @@
             </util:list>
         </property>
     </bean>
-    
+    <bean id="role_anonymous"
+          class="org.apache.cxf.fediz.service.idp.service.jpa.RoleEntity">
+        <property name="name"
+                  value="ANONYMOUS" />
+        <property name="description"
+                  value="Anonymous user" />
+        <property name="entitlements">
+            <util:list>
+            </util:list>
+        </property>
+    </bean>
+
 
 
 </beans>

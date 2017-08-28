@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: jpa
+  application:
+    name: idp
+catalina:
+  home: .
+cxf:
+  path: /services/
+security:
+  basic:
+    enabled: false
+jpa:
+  driverClassName: org.hsqldb.jdbcDriver
+  url: jdbc:hsqldb:target/db/realma/myDB;shutdown=true
+  username: sa
+  password:
+  defaultData: true
+  platform: HSQLDictionary
+logging:
+  file: ${catalina.home}/logs/${spring.application.name}.log
+  level:
+    root: INFO
+    org.springframework.security: DEBUG

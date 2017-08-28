@@ -34,90 +34,45 @@ under the License.
     </session-config>
 
     <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml,/WEB-INF/web-config.xml</param-value>
-    </context-param>
-
-    <context-param>
         <param-name>spring.profiles.active</param-name>
         <param-value>jpa</param-value>
     </context-param>
 
-    <filter>
-        <filter-name>encodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>idp</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>publishContext</param-name>-->
+            <!--<param-value>false</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>idp</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+        <!--<url-pattern>/federation</url-pattern>-->
+        <!--<url-pattern>/federation/up</url-pattern>-->
+        <!--&lt;!&ndash;<url-pattern>/federation/krb</url-pattern>&ndash;&gt;-->
+        <!--&lt;!&ndash;<url-pattern>/federation/clientcert</url-pattern>&ndash;&gt;-->
+        <!--&lt;!&ndash;<url-pattern>/saml</url-pattern>&ndash;&gt;-->
+        <!--&lt;!&ndash;<url-pattern>/saml/up</url-pattern>&ndash;&gt;-->
+        <!--&lt;!&ndash;<url-pattern>/saml/krb</url-pattern>&ndash;&gt;-->
+        <!--&lt;!&ndash;<url-pattern>/saml/clientcert</url-pattern>&ndash;&gt;-->
+    <!--</servlet-mapping>-->
 
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <servlet>
-        <servlet-name>idp</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>publishContext</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>idp</servlet-name>
-        <url-pattern>/</url-pattern>
-        <url-pattern>/federation</url-pattern>
-        <url-pattern>/federation/up</url-pattern>
-        <!--<url-pattern>/federation/krb</url-pattern>-->
-        <!--<url-pattern>/federation/clientcert</url-pattern>-->
-        <!--<url-pattern>/saml</url-pattern>-->
-        <!--<url-pattern>/saml/up</url-pattern>-->
-        <!--<url-pattern>/saml/krb</url-pattern>-->
-        <!--<url-pattern>/saml/clientcert</url-pattern>-->
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>metadata</servlet-name>
-        <servlet-class>org.apache.cxf.fediz.service.idp.MetadataServlet</servlet-class>
-        <init-param>
-            <param-name>realm</param-name>
-            <param-value>urn:org:apache:cxf:fediz:oidc</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>metadata</servlet-name>
-        <url-pattern>/FederationMetadata/2007-06/FederationMetadata.xml</url-pattern>
-        <url-pattern>/metadata/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>CXFServlet</servlet-name>
-        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CXFServlet</servlet-name>
-        <url-pattern>/services/*</url-pattern>
-    </servlet-mapping>
-
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    <!--<servlet>-->
+        <!--<servlet-name>metadata</servlet-name>-->
+        <!--<servlet-class>org.apache.cxf.fediz.service.idp.MetadataServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>realm</param-name>-->
+            <!--<param-value>urn:org:apache:cxf:fediz:oidc</param-value>-->
+        <!--</init-param>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>metadata</servlet-name>-->
+        <!--<url-pattern>/FederationMetadata/2007-06/FederationMetadata.xml</url-pattern>-->
+        <!--<url-pattern>/metadata/*</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <error-page>
         <location>/error</location>

@@ -18,6 +18,7 @@
         <fediz.version>1.4.1</fediz.version>
         <cxf.version>3.1.12</cxf.version>
         <spring.version>4.3.10.RELEASE</spring.version>
+        <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
         <hsqldb.version>2.4.0</hsqldb.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,6 +31,13 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.apache.cxf.fediz</groupId>
                 <artifactId>fediz-oidc</artifactId>
@@ -47,11 +55,27 @@
                 <artifactId>fediz-idp</artifactId>
                 <version>${fediz.version}</version>
                 <type>war</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf.fediz</groupId>
                 <artifactId>fediz-idp-core</artifactId>
                 <version>${fediz.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf.fediz</groupId>
@@ -62,6 +86,16 @@
                 <groupId>org.apache.cxf.fediz</groupId>
                 <artifactId>fediz-core</artifactId>
                 <version>${fediz.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf.fediz</groupId>
@@ -70,9 +104,14 @@
                 <type>war</type>
             </dependency>
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring.version}</version>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+                <version>${cxf.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -119,7 +158,78 @@
                         <generateReports>false</generateReports>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>                    <!--<dependentWarExcludes>-->
+                        <!--WEB-INF/*.jaas,-->
+                        <!--WEB-INF/data/*,-->
+                        <!--WEB-INF/endpoints/*,-->
+                        <!--WEB-INF/classes/log4j.properties,-->
+                        <!--WEB-INF/classes/stsTruststore.properties,-->
+                        <!--WEB-INF/classes/ststrust.jks,-->
+                        <!--WEB-INF/classes/stsKeystoreA.properties,-->
+                        <!--WEB-INF/classes/stsKeystoreB.properties,-->
+                        <!--WEB-INF/classes/sts.properties,-->
+                        <!--WEB-INF/classes/stsrealm_a.jks,-->
+                        <!--WEB-INF/classes/stsrealm_b.jks,-->
+                        <!--WEB-INF/classes/realma.cert,-->
+                        <!--WEB-INF/classes/realmb.cert-->
+                    <!--</dependentWarExcludes>-->
+
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireSameVersions>
+                                    <dependencies>
+                                        <dependency>org.apache.cxf:*</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                                <requireSameVersions>
+                                    <dependencies>
+                                        <dependency>org.springframework:*</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                                <requireSameVersions>
+                                    <dependencies>
+                                        <dependency>com.fasterxml.jackson.core:jackson-core</dependency>
+                                        <dependency>com.fasterxml.jackson.core:jackson-databind</dependency>
+                                        <dependency>com.fasterxml.jackson.dataformat:*</dependency>
+                                        <dependency>com.fasterxml.jackson.jaxrs:*</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                                <requireSameVersions>
+                                    <dependencies>
+                                        <dependency>org.slf4j:*</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                                <requireSameVersions>
+                                    <dependencies>
+                                        <dependency>org.apache.commons:commons-dbcp2</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                                <requireSameVersions>
+                                    <dependencies>
+                                        <dependency>org.apache.wss4j:*</dependency>
+                                    </dependencies>
+                                </requireSameVersions>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

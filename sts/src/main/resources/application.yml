@@ -1,0 +1,14 @@
+cxf:
+  path: /
+spring:
+  application:
+    name: sts
+catalina:
+  home: .
+security:
+  basic:
+    enabled: false
+logging:
+#  file: ${catalina.home}/logs/${spring.application.name}.log
+  level:
+    root: INFO

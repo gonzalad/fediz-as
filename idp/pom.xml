@@ -37,6 +37,47 @@
             <artifactId>fediz-idp-core</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- JACKSON-FIX:BEGIN -->
+        <!-- Fixing jackson version to achieve the same version than spring -->
+        <!-- Otherwise overlay gets an old version -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- JACKSON-FIX:END -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <!-- Name of the generated WAR file -->
@@ -46,20 +87,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <!--<dependentWarExcludes>-->
-                    <!--WEB-INF/applicationContext.xml,-->
-                    <!--WEB-INF/idp*.xml,-->
-                    <!--WEB-INF/security-config.xml,-->
-                    <!--WEB-INF/classes/*.properties,-->
-                    <!--WEB-INF/classes/*.jks,-->
-                    <!--WEB-INF/classes/*.cert,-->
-                    <!--WEB-INF/classes/cxf-tls.xml,-->
-                    <!--WEB-INF/classes/persistenceContext.xml,-->
-                    <!--WEB-INF/classes/entities*.xml,-->
-                    <!--WEB-INF/config/security*-->
-                    <!--</dependentWarExcludes>-->
                     <dependentWarExcludes>
-                        META-INF/context.xml
+                        META-INF/context.xml,
+                        WEB-INF/lib/commons-logging-*.jar,
+                        WEB-INF/lib/jackson-*.jar,
+                        WEB-INF/lib/log4j-*.jar,
+                        WEB-INF/lib/slf4j-api-*.jar,
+                        WEB-INF/lib/slf4j-log4j12-*.jar,
+                        WEB-INF/lib/spring-security-*.jar
                     </dependentWarExcludes>
                     <webResources>
                         <resource>

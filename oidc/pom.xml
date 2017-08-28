@@ -26,6 +26,32 @@
             <artifactId>fediz-core</artifactId>
         </dependency>
         <!-- Fediz Spring Plugin: END -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <!-- Name of the generated WAR file -->
@@ -37,21 +63,12 @@
                 <configuration>
                     <dependentWarExcludes>
                         META-INF/context.xml,
-                        WEB-INF/web.xml
+                        WEB-INF/web.xml,
+                        WEB-INF/lib/commons-logging-*.jar,
+                        WEB-INF/lib/log4j-*.jar,
+                        WEB-INF/lib/slf4j-api-*.jar,
+                        WEB-INF/lib/slf4j-log4j12-*.jar
                     </dependentWarExcludes>
-                    <!--<dependentWarExcludes>-->
-                    <!--META-INF/context.xml,-->
-                    <!--WEB-INF/*.xml,-->
-                    <!--WEB-INF/lib/commons-beanutils-core-*.jar,-->
-                    <!--WEB-INF/lib/commons-beanutils-1.9.2.jar,-->
-                    <!--WEB-INF/lib/log4j-*.jar,-->
-                    <!--WEB-INF/lib/slf4j-api-*.jar,-->
-                    <!--WEB-INF/lib/slf4j-log4j12-*.jar,-->
-                    <!--WEB-INF/lib/commons-logging-*.jar,-->
-                    <!--WEB-INF/classes/log4j.properties,-->
-                    <!--WEB-INF/classes/rs.security.properties,-->
-                    <!--WEB-INF/classes/oidc.jks-->
-                    <!--</dependentWarExcludes>-->
                 </configuration>
             </plugin>
         </plugins>

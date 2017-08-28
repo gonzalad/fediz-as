@@ -36,7 +36,7 @@
 
     <!-- HTTP/BA entry point for WS-Federation -->
     <security:http pattern="/federation/up/**" use-expressions="true">
-		<security:intercept-url pattern="/federation/up/login*" access="isAnonymous() or isAuthenticated()" />
+		<security:intercept-url pattern="/federation/up/login*" access="permitAll()" />
         <security:custom-filter after="CHANNEL_FILTER" ref="stsUPPortFilter" />
         <security:custom-filter after="SERVLET_API_SUPPORT_FILTER" ref="entitlementsEnricher" />
         <security:custom-filter before="FORM_LOGIN_FILTER" ref="requestContextFilter"/>
