@@ -21,4 +21,5 @@ logging:
   file: ${catalina.home}/logs/${spring.application.name}.log
   level:
     root: INFO
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
+    org.springframework.webflow: INFO

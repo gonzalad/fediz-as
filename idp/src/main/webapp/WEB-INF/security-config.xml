@@ -56,15 +56,15 @@
     <security:http pattern="/federation" use-expressions="true" entry-point-ref="fedizEntryPoint">
         <security:custom-filter after="CHANNEL_FILTER" ref="stsUPPortFilter" />
         <security:custom-filter after="SERVLET_API_SUPPORT_FILTER" ref="entitlementsEnricher" />
-        <security:intercept-url pattern="/FederationMetadata/2007-06/FederationMetadata.xml" access="permitAll()" />
+        <security:intercept-url pattern="/FederationMetadata/2007-06/FederationMetadata.xml" access="isAnonymous() or isAuthenticated()" />
     </security:http>
-    
+
     <!-- Main entry point for SAML SSO -->
     <security:http pattern="/saml" use-expressions="true" entry-point-ref="fedizEntryPoint">
         <security:custom-filter after="CHANNEL_FILTER" ref="stsUPPortFilter" />
         <security:custom-filter after="SERVLET_API_SUPPORT_FILTER" ref="entitlementsEnricher" />
     </security:http>
-    
+
     <security:authentication-manager alias="authenticationManagers">
         <security:authentication-provider ref="stsUPAuthProvider" />
         <security:authentication-provider ref="stsKrbAuthProvider" />
@@ -72,7 +72,12 @@
     </security:authentication-manager>
 	
     <bean id="entitlementsEnricher" 
-          class="org.gonzalad.idp.service.security.GrantedAuthorityEntitlements" />
+          class="org.apache.cxf.fediz.service.idp.service.security.GrantedAuthorityEntitlements" />
+
+    <bean class="org.springframework.boot.web.servlet.FilterRegistrationBean">
+        <property name="filter" ref="entitlementsEnricher" />
+        <property name="enabled" value="false" />
+    </bean>
 
     <bean id="commonsURLValidator"
           class="org.apache.cxf.fediz.service.idp.beans.CommonsURLValidator" />
